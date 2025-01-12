@@ -11,7 +11,7 @@ class Post(models.Model):
         related_name='posts',      # Tên quan hệ ngược
     )
     date_created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(null=True, blank=True)  # Trường ảnh
+    image = models.ImageField(upload_to='image_blog' , null=True, blank=True)  # Trường ảnh
 
     def __str__(self):
         return f"{self.title} by {self.author.username}"
@@ -29,3 +29,18 @@ class Comment(models.Model):
     )
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
+
+
+class CustomUser(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    password = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='avatar/', default='avater/avt_default.jpg')
+    bio = models.ImageField(upload_to='bio/', default='bio/bia_default.jpg')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.username

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }}</title>
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
+    {% comment %} <h1>{{ post.title }}</h1>
     <img src="{{ post.image.url }}" alt="{{ post.title }}">
     <p>{{ post.content }}</p>
     <p><strong>Author:</strong> {{ post.author }}</p>
@@ -21,7 +22,31 @@
         {% for comment in post.comments.all %}
             <p><strong>{{ comment.author.username }}:</strong> {{ comment.content }}</p>
             <h6><p>{{comment.date}}</p></h6>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
 
+        <h1>{{ post.title }}</h1>
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        <p>{{ post.content }}</p>
+        <p><strong>Author:</strong> {{ post.author }}</p>
+        <p><strong>Published:</strong> {{ post.date_created }}</p>
+        <a href="{% url 'home' %}">Back to Home</a>
+
+        <!-- Phần hiển thị danh sách bình luận -->
+        <div id="comment-section">
+            <h3>Comments:</h3>
+            <!-- Form thêm bình luận -->
+            <form id="comment-form">
+                {% csrf_token %}
+                <input type="hidden" id="post_id" value="{{ post.id }}">
+                <textarea id="content" placeholder="Add a comment..." required></textarea>
+                <button type="submit">Comment</button>
+            </form>
+            <ul id="comment-list">
+                <!-- Bình luận sẽ được thêm vào đây bằng JavaScript -->
+            </ul>
+        </div>
+
+        <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>
