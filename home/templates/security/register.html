@@ -1,0 +1,40 @@
+{% extends "base/base.html" %} {% load static %}
+{% block title %}Register{%endblock%} 
+
+{% block registerform %}
+<center>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="id_username">Tài khoản</label><br>
+            {{ form.username }}
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="id_email">Email</label><br>
+            {{ form.email }}
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="id_password1">Nhập mật khẩu</label><br>
+            {{ form.password1 }}
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="id_password2">Nhập lại mật khẩu</label><br>
+            {{ form.password2 }}
+        </div>
+        <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Đăng Ký
+        </button>
+    </form>
+</center>
+{% endblock %}
+
+
+
+
+
+
+{% block sliderbar %}
+
+{% endblock %}
+
+

@@ -1,0 +1,15 @@
+{% extends "base/base.html" %} {% load static %}
+{% block Loginform %}
+    <h2>Login</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {% for key,value in from.errors.items %}
+            {{value}}
+        {% endfor %}
+        <p><laber>Tài Khoản:</laber>{{form.username}}</p>
+        <p><laber>Mật Khẩu:</laber>{{form.password}}</p>
+        <input type="hidden" name="next" value="/">
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}

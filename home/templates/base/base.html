@@ -1,0 +1,82 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Clone</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Facebook</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        
+        <div class="nav-links">
+            
+            <a href="#">Home</a>
+            <a href="#">Friends</a>
+            <a href="#">Messages</a>
+            <a href="#">Notifications</a>
+            <a href="#">Profile</a>
+            <img src="{% static 'media/avt_default.jpg' %}" alt="Avatar" class="avatar-img">
+        </div>
+    </div>
+    
+    <div class="container">
+        {% comment %} Phần memu bên trái {% endcomment %}
+        <div class="left-sidebar">
+            <div class="sidebar-avatar">
+                {% block avatar %}
+                    <img src="{% static 'media/avt_default.jpg' %}" alt="Avatar" class="avatar-img">
+                {% endblock %}
+                {% if user.username %}
+                        <p>Xin Chào {{user.username}}</p>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    {% else %}
+                        <p><a href="{% url "login" %}">Đăng Nhập</a>|<a href="{% url "register" %}">Đăng Ký</a></p>
+                {% endif %}
+            </div>
+            <ul>
+                
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Groups</a></li>
+                <li><a href="#">Marketplace</a></li>
+                <li><a href="#">Watch</a></li>
+                <li><a href="#">Memories</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div class="post-box">
+                {% block Inputcontent %}{% endblock %}
+                {% block registerform %}{% endblock %}
+                {% block Loginform %}{% endblock %}
+            </div>
+            <div class="post-box">
+                {% block content %}{% endblock %}
+                {% block post %}{% endblock %}
+                {% comment %} {% block modal_post %}{% endblock %} {% endcomment %}
+            </div>
+        </div>
+        
+
+{% comment %} Phần menu bên phải  {% endcomment %}
+        <div class="right-sidebar">
+            <h3>Friend Suggestions</h3>
+            <ul>
+                <li>Anna Johnson</li>
+                <li>Michael Brown</li>
+                <li>Emily Davis</li>
+            </ul>
+        </div>
+    </div>
+    {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/comment.js' %}"></script>
+</body>
+</html>
